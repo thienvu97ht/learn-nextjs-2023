@@ -8,6 +8,17 @@ export interface PostPageProps {
 export default function PostDetailPage({ post }: PostPageProps) {
   const router = useRouter();
 
+  if (router.isFallback)
+    return (
+      <div
+        style={{
+          fontSize: "2rem",
+          textAlign: "center",
+        }}>
+        Loading...
+      </div>
+    );
+
   if (!post) return null;
 
   return (
@@ -37,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: data.data.map((post: any) => ({ params: { postId: post.id } })),
-    fallback: "blocking",
+    fallback: true,
   };
 };
 
