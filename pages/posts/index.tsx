@@ -30,7 +30,6 @@ export const getStaticProps: GetStaticProps<PostListPageProps> = async (
     "https://js-post-api.herokuapp.com/api/posts?_page=1"
   );
   const data = await response.json();
-  console.log(data);
 
   return {
     props: {
