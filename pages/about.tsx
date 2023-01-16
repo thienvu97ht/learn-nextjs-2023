@@ -1,6 +1,5 @@
 import Header from "@/components/common/header";
-import { link } from "fs";
-import dynamic from "next/dynamic";
+import { MainLayout } from "@/components/layout";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 // import Header from "../components/common/header";
@@ -42,6 +41,8 @@ export default function AboutPage(props: AboutPageProps) {
     </div>
   );
 }
+
+AboutPage.Layout = MainLayout;
 
 // export async function getServerSideProps() {
 //   return {
