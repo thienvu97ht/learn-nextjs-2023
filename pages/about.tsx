@@ -1,6 +1,6 @@
 import Header from "@/components/common/header"
-import { MainLayout } from "@/components/layout"
 import { AdminLayout } from "@/components/layout/admin"
+import { Box, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 // import Header from "../components/common/header";
@@ -27,8 +27,10 @@ export default function AboutPage(props: AboutPageProps) {
 	}, [])
 
 	return (
-		<div>
-			<h1>About Page</h1>
+		<Box>
+			<Typography component="h1" variant="h3" color="primary.main">
+				About Page
+			</Typography>
 
 			<Header />
 
@@ -37,7 +39,7 @@ export default function AboutPage(props: AboutPageProps) {
 					<li key={post.id}>{post.title}</li>
 				))}
 			</ul>
-		</div>
+		</Box>
 	)
 }
 
