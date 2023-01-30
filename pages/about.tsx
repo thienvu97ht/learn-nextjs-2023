@@ -1,7 +1,8 @@
-import Header from "@/components/common/header";
-import { MainLayout } from "@/components/layout";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import Header from "@/components/common/header"
+import { MainLayout } from "@/components/layout"
+import { AdminLayout } from "@/components/layout/admin"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 // import Header from "../components/common/header";
 
 // const Header = dynamic(() => import("@/components/common/header"), {
@@ -11,38 +12,36 @@ import { useEffect, useState } from "react";
 export interface AboutPageProps {}
 
 export default function AboutPage(props: AboutPageProps) {
-  const router = useRouter();
-  const [postList, setPostList] = useState([]);
+	const router = useRouter()
+	const [postList, setPostList] = useState([])
 
-  console.log("About query: ", router.query);
+	console.log("About query: ", router.query)
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://js-post-api.herokuapp.com/api/posts?_page=1"
-      );
-      const data = await response.json();
+	useEffect(() => {
+		;(async () => {
+			const response = await fetch("https://js-post-api.herokuapp.com/api/posts?_page=1")
+			const data = await response.json()
 
-      setPostList(data.data);
-    })();
-  }, []);
+			setPostList(data.data)
+		})()
+	}, [])
 
-  return (
-    <div>
-      <h1>About Page</h1>
+	return (
+		<div>
+			<h1>About Page</h1>
 
-      <Header />
+			<Header />
 
-      <ul className="post-list">
-        {postList.map((post: any) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
+			<ul className="post-list">
+				{postList.map((post: any) => (
+					<li key={post.id}>{post.title}</li>
+				))}
+			</ul>
+		</div>
+	)
 }
 
-AboutPage.Layout = MainLayout;
+AboutPage.Layout = AdminLayout
 
 // export async function getServerSideProps() {
 //   return {
