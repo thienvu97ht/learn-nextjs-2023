@@ -1,4 +1,4 @@
-import Header from "@/components/common/header"
+import { Header } from "@/components/common"
 import { AdminLayout } from "@/components/layout/admin"
 import { Box, Typography } from "@mui/material"
 import { useRouter } from "next/router"
