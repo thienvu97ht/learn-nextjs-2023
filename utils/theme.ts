@@ -3,6 +3,9 @@ import { createTheme } from "@mui/material/styles"
 
 // Create a theme instance.
 export let theme = createTheme({
+	typography: {
+		fontFamily: "Heebo, sans-serif",
+	},
 	palette: {
 		primary: {
 			main: "#FF6464",
@@ -33,6 +36,20 @@ export let theme = createTheme({
 
 					"@media (min-width: 900px)": {
 						maxWidth: "860px",
+					},
+				},
+			},
+		},
+		MuiLink: {
+			defaultProps: {
+				underline: "none",
+			},
+			styleOverrides: {
+				root: {
+					color: "black",
+
+					"&:hover, &.active": {
+						color: "#FF6464",
 					},
 				},
 			},
