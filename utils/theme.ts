@@ -1,5 +1,5 @@
 import { red } from "@mui/material/colors"
-import { createTheme } from "@mui/material/styles"
+import { createTheme, responsiveFontSizes } from "@mui/material/styles"
 
 // Create a theme instance.
 export let theme = createTheme({
@@ -66,3 +66,5 @@ export let theme = createTheme({
 		},
 	},
 })
+
+theme = responsiveFontSizes(theme)
