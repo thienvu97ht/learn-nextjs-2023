@@ -54,5 +54,15 @@ export let theme = createTheme({
 				},
 			},
 		},
+		MuiButton: {
+			variants: [
+				{
+					props: { variant: "contained", color: "primary" },
+					style: {
+						color: "white",
+					},
+				},
+			],
+		},
 	},
 })
