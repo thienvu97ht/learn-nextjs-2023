@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+https://www.figma.com/file/mxe6TTkXeuUJ6mLNUziAOj/Portfolio-UI---Web-%26-Mobile-(Community)?node-id=138%3A260&t=k2xbqMGldv8Zumkw-0
+
 First, run the development server:
 
 ```bash
