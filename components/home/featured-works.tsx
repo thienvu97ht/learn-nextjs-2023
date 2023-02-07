@@ -1,7 +1,6 @@
 import { Work } from "@/models"
-import { Box, Container, Stack, Typography } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material"
 import { WorkList } from "../work"
-import { PostCard } from "./post-card"
 
 export function FeaturedWorks() {
 	const workList: Work[] = [
@@ -46,7 +45,9 @@ export function FeaturedWorks() {
 	return (
 		<Box component="section" pt={2} pb={4}>
 			<Container>
-				<Typography variant="h5">Featured Works</Typography>
+				<Typography variant="h5" mb={4}>
+					Featured Works
+				</Typography>
 
 				<WorkList workList={workList} />
 			</Container>
