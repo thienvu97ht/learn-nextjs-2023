@@ -10,8 +10,6 @@ export interface BlogListPageProps {
 }
 
 export default function BlogListPage({ posts }: BlogListPageProps) {
-	console.log("posts", posts)
-
 	return (
 		<Box>
 			<Container>

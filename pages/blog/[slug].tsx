@@ -1,12 +1,15 @@
 import { Post } from "@/models"
 import { getPostList } from "@/utils"
-import { Container, Divider } from "@mui/material"
+import { Container } from "@mui/material"
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeDocument from "rehype-document"
 import rehypeFormat from "rehype-format"
+import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
+import remarkToc from "remark-toc"
 import { unified } from "unified"
 
 export interface BlogPageProps {
@@ -14,6 +17,7 @@ export interface BlogPageProps {
 }
 
 export default function BlogDetailPage({ post }: BlogPageProps) {
+	console.log("🏆 ~ BlogDetailPage ~ post", post)
 	if (!post) return null
 
 	return (
@@ -22,10 +26,6 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 			<p>{post.title}</p>
 			<p>{post.author?.name}</p>
 			<p>{post.description}</p>
-			<p>{post.mdContent}</p>
-
-			<Divider />
-
 			<div dangerouslySetInnerHTML={{ __html: post.htmlContent || "" }}></div>
 		</Container>
 	)
@@ -53,7 +53,10 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async (
 	// parse md to html
 	const file = await unified()
 		.use(remarkParse)
+		.use(remarkToc, { heading: "agenda.*" })
 		.use(remarkRehype)
+		.use(rehypeSlug)
+		.use(rehypeAutolinkHeadings, { behavior: "wrap" })
 		.use(rehypeDocument, { title: "Blog detail page" })
 		.use(rehypeFormat)
 		.use(rehypeStringify)
