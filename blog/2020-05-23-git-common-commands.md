@@ -19,7 +19,7 @@ Khi nhắc tới git có khá là nhiều lệnh khác nhau, tuy nhiên trong th
 
 ```js[class="line-numbers"]
 function hello() {
-  console.log('Hello World');
+	console.log("Hello World")
 }
 ```
 
