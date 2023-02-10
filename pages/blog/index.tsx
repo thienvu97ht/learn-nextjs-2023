@@ -1,28 +1,41 @@
+import { PostItem } from "@/components/blog"
+import { MainLayout } from "@/components/layout"
 import { Post } from "@/models"
-import { getPostList } from "@/utils"
+import { getPostList } from "@/utils/posts"
+import { Box, Container, Divider } from "@mui/material"
 import { GetStaticProps } from "next"
 import Link from "next/link"
-
 export interface BlogListPageProps {
 	posts: Post[]
 }
 
-export default function BLogListPage({ posts }: BlogListPageProps) {
-	console.log("🏆 ~ BLogListPage ~ posts", posts)
-	return (
-		<div>
-			<h1>Blog List Page</h1>
+export default function BlogListPage({ posts }: BlogListPageProps) {
+	console.log("posts", posts)
 
-			<ul>
-				{posts.map((post) => (
-					<li key={post.id}>
-						<Link href={`/posts/${post.id}`}>{post.title}</Link>
-					</li>
-				))}
-			</ul>
-		</div>
+	return (
+		<Box>
+			<Container>
+				<h1>Blog</h1>
+
+				<Box component="ul" sx={{ listStyleType: "none", p: 0 }}>
+					{posts.map((post) => (
+						<li key={post.id}>
+							<Link href={`/blog/${post.slug}`} passHref legacyBehavior>
+								<a>
+									<PostItem post={post} />
+								</a>
+							</Link>
+
+							<Divider sx={{ my: 3 }} />
+						</li>
+					))}
+				</Box>
+			</Container>
+		</Box>
 	)
 }
+
+BlogListPage.Layout = MainLayout
 
 export const getStaticProps: GetStaticProps<BlogListPageProps> = async () => {
 	// convert markdown files into list of javascript objects
