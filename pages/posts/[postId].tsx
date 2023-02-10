@@ -1,75 +1,73 @@
-import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
-import { useRouter } from "next/dist/client/router";
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next"
+import { useRouter } from "next/dist/client/router"
 
 export interface PostPageProps {
-  post: any;
+	post: any
 }
 
 export default function PostDetailPage({ post }: PostPageProps) {
-  const router = useRouter();
+	const router = useRouter()
 
-  if (router.isFallback)
-    return (
-      <div
-        style={{
-          fontSize: "2rem",
-          textAlign: "center",
-        }}>
-        Loading...
-      </div>
-    );
+	if (router.isFallback)
+		return (
+			<div
+				style={{
+					fontSize: "2rem",
+					textAlign: "center",
+				}}
+			>
+				Loading...
+			</div>
+		)
 
-  if (!post) return null;
+	if (!post) return null
 
-  return (
-    <div>
-      <h1>Post Detail Page</h1>
+	return (
+		<div>
+			<h1>Post Detail Page</h1>
 
-      <p>{post.title}</p>
-      <p>{post.author}</p>
-      <p>{post.description}</p>
+			<p>{post.title}</p>
+			<p>{post.author}</p>
+			<p>{post.description}</p>
 
-      <button
-        onClick={() => {
-          console.log("Click me");
-        }}>
-        Click me!!!
-      </button>
-    </div>
-  );
+			<button
+				onClick={() => {
+					console.log("Click me")
+				}}
+			>
+				Click me!!!
+			</button>
+		</div>
+	)
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  console.log("\nGET STATIC PATHS");
-  const response = await fetch(
-    "https://js-post-api.herokuapp.com/api/posts?_page=1"
-  );
-  const data = await response.json();
+	console.log("\nGET STATIC PATHS")
+	const response = await fetch("https://js-post-api.herokuapp.com/api/posts?_page=1")
+	const data = await response.json()
 
-  return {
-    paths: data.data.map((post: any) => ({ params: { postId: post.id } })),
-    fallback: true,
-  };
-};
+	return {
+		paths: data.data.map((post: any) => ({ params: { postId: post.id } })),
+		fallback: true,
+	}
+}
 
 export const getStaticProps: GetStaticProps<PostPageProps> = async (
-  context: GetStaticPropsContext
+	context: GetStaticPropsContext
 ) => {
-  console.log("\nGET STATIC PROPS", context.params?.postId);
-  const postId = context.params?.postId;
-  if (!postId) return { notFound: true };
+	console.log("\nGET STATIC PROPS", context.params?.postId)
+	const postId = context.params?.postId
+	if (!postId) return { notFound: true }
 
-  // server-side
-  // build-time
-  const response = await fetch(
-    `https://js-post-api.herokuapp.com/api/posts/${postId}`
-  );
-  const data = await response.json();
+	// server-side
+	// build-time
+	const response = await fetch(`https://js-post-api.herokuapp.com/api/posts/${postId}`)
+	const data = await response.json()
 
-  return {
-    props: {
-      post: data,
-    },
-    revalidate: 5,
-  };
-};
+	return {
+		props: {
+			post: data,
+		},
+		revalidate: 5,
+	}
+}
