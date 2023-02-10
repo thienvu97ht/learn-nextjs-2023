@@ -4,5 +4,5 @@ import createCache from "@emotion/cache"
 // This assures that MUI styles are loaded first.
 // It allows developers to easily override MUI styles with other styling solutions, like CSS modules.
 export function createEmotionCache() {
-	return createCache({ key: "css", prepend: true })
+	return createCache({ key: "css" })
 }
