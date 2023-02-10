@@ -1,3 +1,4 @@
+import { Seo } from "@/components/common"
 import { Post } from "@/models"
 import { getPostList } from "@/utils"
 import { Box, Container } from "@mui/material"
@@ -24,6 +25,17 @@ export default function BlogDetailPage({ post }: BlogPageProps) {
 
 	return (
 		<Box>
+			<Seo
+				data={{
+					title: `${post.title} | Easy Frontend Blog`,
+					description: post.description,
+					url: `${process.env.HOST_URL}/blog/${post.slug}`,
+					thumbnailUrl:
+						post.thumbnailUrl ||
+						"https://cdn.getshifter.co/caa65008efb706a8bfc6f7e4045d6a018420c3df/uploads/2020/11/nextjs.png",
+				}}
+			/>
+
 			<Container>
 				<p>{post.title}</p>
 				<p>{post.author?.name}</p>
