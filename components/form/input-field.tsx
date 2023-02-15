@@ -1,18 +1,37 @@
-import { TextField } from "@mui/material"
+import { TextField, TextFieldProps } from "@mui/material"
 import { useController, Control } from "react-hook-form"
 
-export interface InputFieldProps {
+export type InputFieldProps = TextFieldProps & {
 	name: string
-	label?: string
 	control: Control<any>
 }
 
-export function InputField({ name, label, control }: InputFieldProps) {
+export function InputField({
+	name,
+	control,
+	onChange: externalOnChange,
+	onBlur: externalOnBlur,
+	ref: externalRef,
+	value: externalValue,
+	...rest
+}: InputFieldProps) {
 	const {
 		field: { onChange, onBlur, value, ref },
 		fieldState: { error },
 	} = useController({ name, control })
 
 	// render whatever you want: MUI, Ant Design, Bootstrap, Custom UI
-	return <TextField />
+	return (
+		<TextField
+			fullWidth
+			size="small"
+			name="name"
+			margin="normal"
+			value={value}
+			onChange={onChange}
+			onBlur={onBlur}
+			inputRef={ref}
+			{...rest}
+		/>
+	)
 }
