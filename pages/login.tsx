@@ -1,57 +1,42 @@
 import { LoginForm } from "@/components/auth"
 import { useAuth } from "@/hooks"
 import { LoginPayload } from "@/models"
+import { Box, Paper, Typography } from "@mui/material"
 import { useRouter } from "next/router"
 
 export default function Login() {
 	const router = useRouter()
-	const { profile, login, logout } = useAuth({
+	const { login } = useAuth({
 		revalidateOnMount: false,
 	})
-
-	async function handleLoginClick() {
-		try {
-			await login({
-				username: "test1",
-				password: "123456",
-			})
-			console.log("redirect to dashboard")
-			router.push("/about")
-		} catch (error) {
-			console.log("failed to login", error)
-		}
-	}
-
-	async function handleLogoutClick() {
-		try {
-			await logout()
-		} catch (error) {
-			console.log("failed to logout", error)
-		}
-	}
 
 	async function handleLoginSubmit(payload: LoginPayload) {
 		try {
 			await login(payload)
-			// console.log("redirect to dashboard")
-			// router.push("/about")
+			router.push("/")
 		} catch (error) {
 			console.log("failed to login", error)
 		}
 	}
 
 	return (
-		<div>
-			<h1>Login Page</h1>
+		<Box>
+			<Paper
+				elevation={4}
+				sx={{
+					mx: "auto",
+					mt: 8,
+					p: 4,
+					maxWidth: "480px",
+					textAlign: "center",
+				}}
+			>
+				<Typography component="h1" variant="h5" mb={3}>
+					Easy Frontend - Login
+				</Typography>
 
-			<p>Profile: {JSON.stringify(profile || {}, null, 4)}</p>
-
-			<button onClick={handleLoginClick}>Login</button>
-			{/* <button onClick={handleGetProfileClick}>Get Profile</button> */}
-			<button onClick={handleLogoutClick}>Logout</button>
-			<button onClick={() => router.push("/about")}>Go to about</button>
-
-			<LoginForm onSubmit={handleLoginSubmit} />
-		</div>
+				<LoginForm onSubmit={handleLoginSubmit} />
+			</Paper>
+		</Box>
 	)
 }
