@@ -1,5 +1,6 @@
 import { LoginForm } from "@/components/auth"
 import { useAuth } from "@/hooks"
+import { LoginPayload } from "@/models"
 import { useRouter } from "next/router"
 
 export default function Login() {
@@ -21,19 +22,21 @@ export default function Login() {
 		}
 	}
 
-	// async function handleGetProfileClick() {
-	// 	try {
-	// 		await authApi.getProfile()
-	// 	} catch (error) {
-	// 		console.log("failed to get profile", error)
-	// 	}
-	// }
-
 	async function handleLogoutClick() {
 		try {
 			await logout()
 		} catch (error) {
 			console.log("failed to logout", error)
+		}
+	}
+
+	async function handleLoginSubmit(payload: LoginPayload) {
+		try {
+			await login(payload)
+			// console.log("redirect to dashboard")
+			// router.push("/about")
+		} catch (error) {
+			console.log("failed to login", error)
 		}
 	}
 
@@ -48,7 +51,7 @@ export default function Login() {
 			<button onClick={handleLogoutClick}>Logout</button>
 			<button onClick={() => router.push("/about")}>Go to about</button>
 
-			<LoginForm />
+			<LoginForm onSubmit={handleLoginSubmit} />
 		</div>
 	)
 }
