@@ -3,7 +3,6 @@ import { FeaturedWorks, HeroSection, RecentPosts } from "@/components/home"
 import { MainLayout } from "@/components/layout"
 import { NextPageWithLayout } from "@/models"
 import { Box } from "@mui/material"
-import { GetStaticProps, GetStaticPropsContext } from "next"
 
 const Home: NextPageWithLayout = () => {
 	return (
@@ -27,14 +26,5 @@ const Home: NextPageWithLayout = () => {
 }
 
 Home.Layout = MainLayout
-
-export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
-	// server-side
-	// build-time
-
-	return {
-		props: {},
-	}
-}
 
 export default Home
