@@ -1,6 +1,16 @@
 import { authApi } from "@/api"
+import { StorageKeys } from "@/constants"
 import { LoginPayload, UserProfile } from "@/models"
 import useSWR, { SWRConfiguration } from "swr"
+
+function getUserInfo(): UserProfile | null {
+	try {
+		return JSON.parse(localStorage.getItem(StorageKeys.USER_INFO) || "")
+	} catch (error) {
+		// console.log('failed to parse user info from local storage', error)
+		return null
+	}
+}
 
 // Auth --> Protected Pages
 // <Auth>{children}</Auth>
@@ -14,6 +24,16 @@ export function useAuth(options?: SWRConfiguration) {
 		dedupingInterval: 60 * 60 * 1000, // 1hr
 		revalidateOnFocus: false,
 		...options,
+		fallbackData: getUserInfo(),
+		onSuccess(data) {
+			// save user info to local storage
+			localStorage.setItem(StorageKeys.USER_INFO, JSON.stringify(data))
+		},
+		onError(err) {
+			// failed to get profile --> logout
+			console.log("🏆 ~ onError ~ err", err) // send error log to server if any
+			logout()
+		},
 	})
 
 	const firstLoading = profile === undefined && error === undefined
@@ -26,6 +46,7 @@ export function useAuth(options?: SWRConfiguration) {
 
 	async function logout() {
 		await authApi.logout()
+		localStorage.removeItem(StorageKeys.USER_INFO)
 		mutate(null, false)
 	}
 

@@ -6,9 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { ROUTE_LIST } from "./routes"
 
-export interface HeaderDesktopProps {}
-
-export function HeaderDesktop(props: HeaderDesktopProps) {
+export function HeaderDesktop() {
 	const router = useRouter()
 	const { profile, logout } = useAuth()
 	const isLoggedIn = Boolean(profile?.username)
