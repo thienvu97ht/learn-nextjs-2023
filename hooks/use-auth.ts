@@ -1,24 +1,16 @@
 import { authApi } from "@/api"
-import { LoginPayload } from "@/models"
-import useSWR from "swr"
-import { PublicConfiguration } from "swr/_internal"
+import { LoginPayload, UserProfile } from "@/models"
+import useSWR, { SWRConfiguration } from "swr"
 
 // Auth --> Protected Pages
 // <Auth>{children}</Auth>
-interface UseAuthProps {
-	profile: any
-	error: any
-	login: (payload: LoginPayload) => Promise<void>
-	logout: () => Promise<void>
-	firstLoading: boolean
-}
 
-export function useAuth(options?: Partial<PublicConfiguration>): UseAuthProps {
+export function useAuth(options?: SWRConfiguration) {
 	const {
 		data: profile,
 		error,
 		mutate,
-	} = useSWR("/profile", {
+	} = useSWR<UserProfile | null>("/profile", {
 		dedupingInterval: 60 * 60 * 1000, // 1hr
 		revalidateOnFocus: false,
 		...options,

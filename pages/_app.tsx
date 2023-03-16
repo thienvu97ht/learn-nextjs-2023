@@ -5,6 +5,7 @@ import { createEmotionCache, theme } from "@/utils"
 import { CacheProvider } from "@emotion/react"
 import { CssBaseline } from "@mui/material"
 import { ThemeProvider } from "@mui/material/styles"
+import { url } from "inspector"
 import { SWRConfig } from "swr"
 import "../styles/globals.css"
 import "../styles/prism.css"
@@ -23,12 +24,7 @@ export default function App({
 		<CacheProvider value={emotionCache}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<SWRConfig
-					value={{
-						fetcher: (url) => axiosClient.get(url),
-						shouldRetryOnError: false,
-					}}
-				>
+				<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
 					<Layout>
 						<Component {...pageProps} />
 					</Layout>
