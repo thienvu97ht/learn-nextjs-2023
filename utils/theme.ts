@@ -4,7 +4,7 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles"
 // Create a theme instance.
 export let theme = createTheme({
 	typography: {
-		fontFamily: "Heebo, sans-serif",
+		fontFamily: "Poppins, sans-serif",
 	},
 	palette: {
 		primary: {
