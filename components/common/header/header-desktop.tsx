@@ -1,6 +1,5 @@
 import { useAuth } from "@/hooks"
-import { Box, Link as MuiLink } from "@mui/material"
-import { Container, Stack } from "@mui/system"
+import { Box, Container, Link as MuiLink, Stack } from "@mui/material"
 import clsx from "clsx"
 import Link from "next/link"
 import { useRouter } from "next/router"
