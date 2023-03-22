@@ -4,8 +4,8 @@ import { AppPropsWithLayout } from "@/models"
 import { createEmotionCache, theme } from "@/utils"
 import { CacheProvider } from "@emotion/react"
 import { CssBaseline } from "@mui/material"
-import { ThemeProvider } from "@mui/material/styles"
-import { url } from "inspector"
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
+import { ThemeProvider as NextThemeProvider } from "next-themes"
 import { SWRConfig } from "swr"
 import "../styles/globals.css"
 import "../styles/prism.css"
@@ -22,14 +22,16 @@ export default function App({
 
 	return (
 		<CacheProvider value={emotionCache}>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
-				</SWRConfig>
-			</ThemeProvider>
+			<NextThemeProvider attribute="class">
+				<MuiThemeProvider theme={theme}>
+					<CssBaseline />
+					<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
+					</SWRConfig>
+				</MuiThemeProvider>
+			</NextThemeProvider>
 		</CacheProvider>
 	)
 }
