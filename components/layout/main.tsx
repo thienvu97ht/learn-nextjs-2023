@@ -3,7 +3,7 @@ import { Box, Stack } from "@mui/material"
 import dynamic from "next/dynamic"
 import { Footer } from "../common"
 
-const Header = dynamic(() => import("../common").then((mod) => mod.Header), {
+const Header = dynamic(() => import("../common/header"), {
 	ssr: false,
 })
 

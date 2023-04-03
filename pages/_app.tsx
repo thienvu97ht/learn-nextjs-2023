@@ -6,6 +6,8 @@ import { CacheProvider } from "@emotion/react"
 import { CssBaseline } from "@mui/material"
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
 import { ThemeProvider as NextThemeProvider } from "next-themes"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import { SWRConfig } from "swr"
 import "../styles/globals.css"
 import "../styles/prism.css"
@@ -25,6 +27,7 @@ export default function App({
 			<NextThemeProvider attribute="class">
 				<MuiThemeProvider theme={theme}>
 					<CssBaseline />
+					<ToastContainer />
 					<SWRConfig value={{ fetcher: (url) => axiosClient.get(url), shouldRetryOnError: false }}>
 						<Layout>
 							<Component {...pageProps} />
