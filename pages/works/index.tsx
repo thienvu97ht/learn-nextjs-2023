@@ -1,9 +1,39 @@
 import { MainLayout } from "@/components/layout"
+import { useWorkList } from "@/hooks"
+import { ListParams } from "@/models"
+import { Box, Button } from "@mui/material"
+import { useState } from "react"
 
 export interface WorksPageProps {}
 
 export default function WorksPage(props: WorksPageProps) {
-	return <div>Works Page</div>
+	const [filters, setFilters] = useState<Partial<ListParams>>({
+		_page: 1,
+		_limit: 10,
+	})
+
+	const { data, isLoading } = useWorkList({
+		params: filters,
+	})
+	console.log("🏆 ~ WorksPage ~ workList:", data, isLoading)
+
+	function handleNextClick() {
+		setFilters((prevFilters) => ({
+			...prevFilters,
+			_page: (prevFilters?._page || 0) + 1,
+		}))
+	}
+
+	return (
+		<div>
+			Works Page
+			<Box>
+				<Button variant="contained" onClick={handleNextClick}>
+					Next Page
+				</Button>
+			</Box>
+		</div>
+	)
 }
 
 WorksPage.Layout = MainLayout
