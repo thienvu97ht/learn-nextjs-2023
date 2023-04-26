@@ -1,7 +1,8 @@
 import { MainLayout } from "@/components/layout"
+import { WorkList } from "@/components/work"
 import { useWorkList } from "@/hooks"
 import { ListParams } from "@/models"
-import { Box, Button } from "@mui/material"
+import { Box, Button, Container, LinearProgress, Typography } from "@mui/material"
 import { useState } from "react"
 
 export interface WorksPageProps {}
@@ -9,13 +10,19 @@ export interface WorksPageProps {}
 export default function WorksPage(props: WorksPageProps) {
 	const [filters, setFilters] = useState<Partial<ListParams>>({
 		_page: 1,
-		_limit: 10,
+		_limit: 3,
 	})
 
 	const { data, isLoading } = useWorkList({
 		params: filters,
 	})
-	console.log("🏆 ~ WorksPage ~ workList:", data, isLoading)
+
+	function handlePrevClick() {
+		setFilters((prevFilters) => ({
+			...prevFilters,
+			_page: (prevFilters?._page || 0) + 1,
+		}))
+	}
 
 	function handleNextClick() {
 		setFilters((prevFilters) => ({
@@ -25,14 +32,27 @@ export default function WorksPage(props: WorksPageProps) {
 	}
 
 	return (
-		<div>
-			Works Page
-			<Box>
-				<Button variant="contained" onClick={handleNextClick}>
-					Next Page
-				</Button>
-			</Box>
-		</div>
+		<Box>
+			<Container>
+				<Box mb={4} mt={8}>
+					<Typography component="h1" variant="h3" fontWeight="bold">
+						Work
+					</Typography>
+				</Box>
+
+				{isLoading ? <LinearProgress /> : <WorkList workList={data?.data || []} />}
+
+				<Box>
+					<Button variant="contained" onClick={handlePrevClick}>
+						Prev Page
+					</Button>
+
+					<Button variant="contained" onClick={handleNextClick}>
+						Next Page
+					</Button>
+				</Box>
+			</Container>
+		</Box>
 	)
 }
 
